@@ -303,15 +303,6 @@ ORDER BY Default_Rate;
 
 ---
 
-## 🚀 How to Use
-
-1. **Clone this repository:**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/Bank-Loan-Analysis.git
-
-
----
-
 ## 📁 Data Dictionary
 
 | Column | Description |
