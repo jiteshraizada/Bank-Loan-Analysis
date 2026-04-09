@@ -72,7 +72,7 @@ the key drivers behind loan defaults. This project analyzes:
 ### 2️⃣ Borrower Profile
 > Deep dive into borrower demographics and their impact on default rates.
 
-![Borrower Details Dashboard](Screenshots/Borrower_Details_Dashboard.png)
+![Borrowers Details Dashboard](Screenshots/Borrowers_Details_Dashboard.png)
 
 **Key KPIs:**
 | KPI | Value |
