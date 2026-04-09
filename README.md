@@ -339,9 +339,9 @@ ORDER BY Default_Rate;
 ## 📬 Contact
 
 **Your Name**
-- 🔗 [LinkedIn](https://linkedin.com/in/YOUR_PROFILE)
-- 📧 your.email@example.com
-- 💻 [GitHub](https://github.com/YOUR_USERNAME)
+- 🔗 [LinkedIn](https://linkedin.com/in/jitesh-raizada)
+- 📧 jiteshraizada@gmail.com
+- 💻 [GitHub](https://github.com/jitesh_raizada)
 
 ---
 
