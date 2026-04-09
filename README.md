@@ -1,4 +1,4 @@
-# 🏦 Bank Loan Analysis — Dashboard & SQL Ad Hoc Analysis
+# 🏦 Bank Loan Default Analysis — Dashboard & SQL Ad Hoc Analysis
 
 ![Banner](https://img.shields.io/badge/Tools-SQL%20%7C%20Power%20BI-blue)
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
@@ -6,12 +6,15 @@
 
 ## 📌 Project Overview
 
-This project provides a **comprehensive analysis of bank loan data** using:
-- **SQL** — for ad hoc querying, KPI generation, and data validation
-- **Power BI / Tableau** — for interactive dashboard visualization
+This project provides a **comprehensive analysis of bank loan data**
+focused on understanding **loan defaults, borrower profiles, and risk
+assessment** using:
+- **SQL** — for ad hoc querying, KPI generation, and data exploration
+- **Power BI** — for interactive dashboard visualization
 
-The goal is to monitor lending activities, track key performance indicators,
-and derive actionable insights for data-driven decision-making.
+The goal is to identify key factors driving loan defaults, analyze
+borrower demographics, and validate the risk scoring model for
+data-driven lending decisions.
 
 ---
 
@@ -19,106 +22,137 @@ and derive actionable insights for data-driven decision-making.
 - [Problem Statement](#-problem-statement)
 - [Dashboards](#-dashboards)
 - [SQL Ad Hoc Analysis](#-sql-ad-hoc-analysis)
-- [Key Metrics & KPIs](#-key-metrics--kpis)
+- [Key Insights](#-key-insights)
 - [Tools Used](#️-tools-used)
 - [How to Use](#-how-to-use)
-- [Key Insights](#-key-insights)
 - [Contact](#-contact)
 
 ---
 
 ## 🎯 Problem Statement
 
-The bank needs to monitor and assess its lending activities and performance.
-This project creates a **Bank Loan Report** that provides insights into:
-- Total loan applications, funded amounts, and amounts received
-- Average interest rates and debt-to-income (DTI) ratios
-- Trends by month, state, loan term, employee length, purpose, and
-  home ownership
-- Loan status distribution across the portfolio
+The bank needs to understand its loan portfolio performance and identify
+the key drivers behind loan defaults. This project analyzes:
+- Overall portfolio health — total borrowers, loan amounts, default rates
+- Borrower demographics — age, gender, employment status, income
+- Credit & risk factors — credit tier, DTI tier, loan grade, risk score
+- Loan characteristics — purpose, term, interest rates
+- Risk model validation — evaluating the composite risk scoring model
 
 ---
 
 ## 📊 Dashboards
 
-### 1️⃣ Summary Dashboard
-> High-level KPIs with Month-over-Month (MoM) and Month-to-Date (MTD)
-> tracking.
+### 1️⃣ Loan Portfolio Overview
+> High-level portfolio snapshot with default rate analysis by loan purpose.
 
-![Summary Dashboard](Dashboard/Screenshots/Summary_Dashboard.png)
+![Loan Portfolio Overview](Dashboard/Screenshots/Loan_Portfolio_Overview.png)
 
 **Key KPIs:**
-| KPI | Description |
-|-----|-------------|
-| Total Loan Applications | Total + MTD + MoM % change |
-| Total Funded Amount | Total disbursed + MTD + MoM |
-| Total Amount Received | Total repayments + MTD + MoM |
-| Avg Interest Rate | Average across all loans + MTD + MoM |
-| Avg DTI | Average Debt-to-Income ratio + MTD + MoM |
+| KPI | Value |
+|-----|-------|
+| Total Borrowers | 20,000 |
+| Total Loan Amount | \$302,586,018 |
+| Avg Interest Rate | 12.40% |
+| Default Rate | 20.01% |
+| Average Credit Score | 679.26 |
+| Average Income | \$43,549.6 |
 
----
-
-### 2️⃣ Overview Dashboard
-> Visual analytics with multiple chart types for trend and
-> dimensional analysis.
-
-![Overview Dashboard](Dashboard/Screenshots/Overview_Dashboard.png)
-
+**Visuals:**
 | Chart | Purpose |
 |-------|---------|
-| 📈 Line Chart | Monthly Trends by Issue Date |
-| 🗺️ Filled Map | Regional Analysis by State |
-| 🍩 Donut Chart | Loan Term Distribution (36 vs 60 months) |
-| 📊 Bar Chart | Employee Length Analysis |
-| 🎯 Bar Chart | Loan Purpose Breakdown |
-| 🏠 Tree Map | Home Ownership Analysis |
+| 🍩 Donut Chart | Total Borrowers by Loan Status (Paid Back vs Defaulted) |
+| 📊 Bar Chart | Default Rate by Loan Purpose |
+| 📋 Table | Loan Purpose breakdown — Avg Interest Rate, Default Rate, Total Loan |
+
+**Filters:** Risk Category, Employment Status, Loan Term
 
 ---
 
-### 3️⃣ Details Dashboard
-> Granular, table-based view serving as a holistic snapshot of all
-> key loan metrics and borrower profiles.
+### 2️⃣ Borrower Profile
+> Deep dive into borrower demographics and their impact on default rates.
 
-![Details Dashboard](Dashboard/Screenshots/Details_Dashboard.png)
+![Borrower Profile](Dashboard/Screenshots/Borrower_Profile.png)
+
+**Key KPIs:**
+| KPI | Value |
+|-----|-------|
+| Average DTI | 17.70 |
+| Average Age | 48.03 |
+| Avg Total Accounts | 5.01 |
+
+**Visuals:**
+| Chart | Purpose |
+|-------|---------|
+| 📊 Bar Chart | Default Rate by Credit Tier (Excellent to Very Poor) |
+| 📊 Stacked Bar Chart | Default Rate & Paid Back Rate by Employment Status |
+| 🍩 Donut Chart | Total Borrowers by Gender (Male, Female, Other) |
+| 📊 Bar Chart | Default Rate by DTI Tier (Low to Critical) |
+| 📊 Bar Chart | Default Rate by Loan Grade (A to F) |
+
+**Filters:** Risk Category, Employment Status, Loan Term
+
+---
+
+### 3️⃣ Risk Analysis Dashboard
+> Risk model validation with default rate analysis across risk categories
+> and risk scores.
+
+![Risk Analysis Dashboard](Dashboard/Screenshots/Risk_Analysis_Dashboard.png)
+
+**Key KPIs:**
+| KPI | Value |
+|-----|-------|
+| Average Risk Score | 6.67 |
+| High Risk Default Rate | 43.46% |
+| Very High Risk Default Rate | 91.21% |
+| Borrowers with Low Risk | 2,298 |
+
+**Visuals:**
+| Chart | Purpose |
+|-------|---------|
+| 🍩 Donut Chart | Total Borrowers by Risk Category (Low, Medium, High, Very High) |
+| 📊 Bar Chart | Default Rate by Risk Category |
+| 📈 Line Chart | Default Rate by Risk Score |
+| 📋 Table | Risk Category — Defaulted Count, Paid Back Count, Total Borrowers |
+
+**Risk Model Validation:**
+> Borrowers classified as Very High Risk show 91.2% default rate compared
+> to 0.1% for Low Risk borrowers — a 91 percentage point difference,
+> confirming strong predictive accuracy of the composite risk scoring model.
+
+**Filters:** Risk Category, Employment Status, Loan Term, DTI Tier, Credit Tier
 
 ---
 
 ## 🛢️ SQL Ad Hoc Analysis
 
-All SQL queries used for data extraction, KPI calculation, and dashboard
-validation are available in
+All SQL queries used for data extraction, KPI calculation, and analysis
+are available in
 [`SQL_Analysis/Bank_Loan_Ad_Hoc_Analysis.sql`](SQL_Analysis/Bank_Loan_Ad_Hoc_Analysis.sql)
 
 ### Queries Include:
 
-#### 📌 A. Key Performance Indicators (KPIs)
+#### 📌 A. Portfolio Level KPIs
 
 ```sql
--- 1. Total Loan Applications
-SELECT COUNT(id) AS Total_Loan_Applications FROM bank_loan_data;
+-- Total Borrowers
+SELECT COUNT(*) AS Total_Borrowers FROM bank_loan_data;
 
--- 2. MTD Loan Applications
-SELECT COUNT(id) AS MTD_Total_Loan_Applications
-FROM bank_loan_data
-WHERE MONTH(issue_date) = 12 AND YEAR(issue_date) = 2021;
+-- Total Loan Amount
+SELECT SUM(loan_amount) AS Total_Loan_Amount FROM bank_loan_data;
 
--- 3. PMTD Loan Applications
-SELECT COUNT(id) AS PMTD_Total_Loan_Applications
-FROM bank_loan_data
-WHERE MONTH(issue_date) = 11 AND YEAR(issue_date) = 2021;
+-- Average Interest Rate
+SELECT ROUND(AVG(interest_rate), 2) AS Avg_Interest_Rate FROM bank_loan_data;
 
--- 4. Total Funded Amount
-SELECT SUM(loan_amount) AS Total_Funded_Amount FROM bank_loan_data;
+-- Overall Default Rate
+SELECT
+    ROUND(COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) * 100.0
+    / COUNT(*), 2) AS Default_Rate
+FROM bank_loan_data;
 
--- 5. MTD Total Funded Amount
-SELECT SUM(loan_amount) AS MTD_Total_Funded_Amount
-FROM bank_loan_data
-WHERE MONTH(issue_date) = 12 AND YEAR(issue_date) = 2021;
+-- Average Credit Score
+SELECT ROUND(AVG(credit_score), 2) AS Avg_Credit_Score FROM bank_loan_data;
 
--- 6. Total Amount Received
-SELECT SUM(total_payment) AS Total_Amount_Received FROM bank_loan_data;
-
--- 7. MTD Total Amount Received
-SELECT SUM(total_payment) AS MTD_Total_Amount_Received
-FROM bank_loan_data
-WHERE MONTH(issue_date) = 12 AND YEAR(issue_date) = 2021;<span class="ml-2" /><span class="inline-block w-3 h-3 rounded-full bg-neutral-a12 align-middle mb-[0.1rem]" />
+-- Average Income
+SELECT ROUND(AVG(income), 2) AS Avg_Income FROM bank_loan_data;
