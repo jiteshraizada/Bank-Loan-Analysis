@@ -338,8 +338,8 @@ ORDER BY Default_Rate;
 
 ## 📬 Contact
 
-**Your Name**
-- 🔗 [LinkedIn](https://linkedin.com/in/jitesh-raizada)
+**Jitesh Raizada**
+- 🔗 [LinkedIn](ttps:/linkedin.com/in/jitesh-raizada)
 - 📧 jiteshraizada@gmail.com
 - 💻 [GitHub](https://github.com/jitesh_raizada)
 
