@@ -46,7 +46,7 @@ the key drivers behind loan defaults. This project analyzes:
 ### 1️⃣ Loan Portfolio Overview
 > High-level portfolio snapshot with default rate analysis by loan purpose.
 
-![Loan Portfolio Overview](Dashboard/Screenshots/Loan_Portfolio_Overview.png)
+![Loan Portfolio Overview](Screenshots/Loan_Portfolio_Overview.png)
 
 **Key KPIs:**
 | KPI | Value |
@@ -72,7 +72,7 @@ the key drivers behind loan defaults. This project analyzes:
 ### 2️⃣ Borrower Profile
 > Deep dive into borrower demographics and their impact on default rates.
 
-![Borrower Details Dashboard](Dashboard/Screenshots/Borrower_Details_Dashboard.png)
+![Borrower Details Dashboard](Screenshots/Borrower_Details_Dashboard.png)
 
 **Key KPIs:**
 | KPI | Value |
@@ -98,7 +98,7 @@ the key drivers behind loan defaults. This project analyzes:
 > Risk model validation with default rate analysis across risk categories
 > and risk scores.
 
-![Risk Analysis Dashboard](Dashboard/Screenshots/Risk_Analysis_Dashboard.png)
+![Risk Analysis Dashboard](Screenshots/Risk_Analysis_Dashboard.png)
 
 **Key KPIs:**
 | KPI | Value |
@@ -156,3 +156,193 @@ SELECT ROUND(AVG(credit_score), 2) AS Avg_Credit_Score FROM bank_loan_data;
 
 -- Average Income
 SELECT ROUND(AVG(income), 2) AS Avg_Income FROM bank_loan_data;
+
+-- Average DTI
+SELECT ROUND(AVG(dti), 2) AS Avg_DTI FROM bank_loan_data;
+
+-- Average Age
+SELECT ROUND(AVG(age), 2) AS Avg_Age FROM bank_loan_data;
+
+-- Average Total Accounts
+SELECT ROUND(AVG(total_accounts), 2) AS Avg_Total_Accounts FROM bank_loan_data;
+
+-- Default Rate by Credit Tier
+SELECT
+    credit_tier,
+    COUNT(*) AS Total_Borrowers,
+    ROUND(COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) * 100.0
+    / COUNT(*), 2) AS Default_Rate
+FROM bank_loan_data
+GROUP BY credit_tier
+ORDER BY Default_Rate;
+
+-- Default Rate by Employment Status
+SELECT
+    employment_status,
+    COUNT(*) AS Total_Borrowers,
+    ROUND(COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) * 100.0
+    / COUNT(*), 2) AS Default_Rate,
+    ROUND(COUNT(CASE WHEN loan_status = 'Paid Back' THEN 1 END) * 100.0
+    / COUNT(*), 2) AS Paid_Back_Rate
+FROM bank_loan_data
+GROUP BY employment_status;
+
+-- Total Borrowers by Gender
+SELECT
+    gender,
+    COUNT(*) AS Total_Borrowers,
+    ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM bank_loan_data), 2)
+    AS Percentage
+FROM bank_loan_data
+GROUP BY gender;
+
+-- Default Rate by DTI Tier
+SELECT
+    dti_tier,
+    ROUND(COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) * 100.0
+    / COUNT(*), 2) AS Default_Rate
+FROM bank_loan_data
+GROUP BY dti_tier;
+
+-- Default Rate by Loan Grade
+SELECT
+    loan_grade,
+    ROUND(COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) * 100.0
+    / COUNT(*), 2) AS Default_Rate
+FROM bank_loan_data
+GROUP BY loan_grade
+ORDER BY loan_grade;
+
+-- Loan Status Distribution
+SELECT
+    loan_status,
+    COUNT(*) AS Total_Borrowers,
+    ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM bank_loan_data), 2)
+    AS Percentage
+FROM bank_loan_data
+GROUP BY loan_status;
+
+-- Default Rate by Loan Purpose
+SELECT
+    loan_purpose,
+    ROUND(AVG(interest_rate), 2) AS Avg_Interest_Rate,
+    ROUND(COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) * 100.0
+    / COUNT(*), 2) AS Default_Rate,
+    SUM(loan_amount) AS Total_Loan
+FROM bank_loan_data
+GROUP BY loan_purpose
+ORDER BY Default_Rate DESC;
+
+-- Average Risk Score
+SELECT ROUND(AVG(risk_score), 2) AS Avg_Risk_Score FROM bank_loan_data;
+
+-- Default Rate by Risk Category
+SELECT
+    risk_category,
+    COUNT(*) AS Total_Borrowers,
+    COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) AS Defaulted_Count,
+    COUNT(CASE WHEN loan_status = 'Paid Back' THEN 1 END) AS Paid_Back_Count,
+    ROUND(COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) * 100.0
+    / COUNT(*), 2) AS Default_Rate
+FROM bank_loan_data
+GROUP BY risk_category
+ORDER BY Default_Rate;
+
+-- Default Rate by Risk Score
+SELECT
+    risk_score,
+    ROUND(COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) * 100.0
+    / COUNT(*), 2) AS Default_Rate
+FROM bank_loan_data
+GROUP BY risk_score
+ORDER BY risk_score;
+
+-- Risk Model Validation
+SELECT
+    risk_category,
+    COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) AS Defaulted_Count,
+    COUNT(CASE WHEN loan_status = 'Paid Back' THEN 1 END) AS Paid_Back_Count,
+    COUNT(*) AS Total_Borrowers,
+    ROUND(COUNT(CASE WHEN loan_status = 'Defaulted' THEN 1 END) * 100.0
+    / COUNT(*), 2) AS Default_Rate
+FROM bank_loan_data
+GROUP BY risk_category
+ORDER BY Default_Rate;
+
+
+---
+
+## 💡 Key Insights
+
+- 📊 **20.01% overall default rate** across 20,000 borrowers
+- 🏦 **\$302.5M total loan portfolio** with average interest rate of 12.40%
+- 🎓 **Education loans** have the highest default rate (22.2%), followed
+  by Medical (21.7%) and Vacation (20.8%)
+- 📉 **Very Poor credit tier (<600)** has the highest default rate (32%)
+  vs Excellent (750+) at just 8%
+- 👥 **Unemployed borrowers** have the highest default rate (82%),
+  while Retired have the lowest (1%)
+- 🚨 **Very High Risk borrowers** default at 91.2% vs 0.1% for Low Risk
+  — confirming the risk model's strong predictive accuracy
+- 📈 Default rate **increases sharply** as risk score increases from 4 to 12
+- ⚖️ **Critical DTI tier (>40%)** shows the highest default rate (43.18%)
+- 📊 **Loan Grade F** has the highest default rate (32%), decreasing
+  steadily to Grade A (5%)
+- 👨‍👩‍👧 Gender split is nearly balanced — Male (50.17%), Female (47.68%),
+  Other (2.15%)
+
+---
+
+## 🛠️ Tools Used
+
+| Tool | Purpose |
+|------|---------|
+| **SQL Server** | Data querying, KPI calculation, ad hoc analysis |
+| **Power BI** | Interactive dashboard creation (3 dashboards) |
+| **GitHub** | Version control & project documentation |
+
+---
+
+## 🚀 How to Use
+
+1. **Clone this repository:**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/Bank-Loan-Analysis.git
+
+
+---
+
+## 📁 Data Dictionary
+
+| Column | Description |
+|--------|-------------|
+| `age` | Borrower's age |
+| `gender` | Male / Female / Other |
+| `income` | Borrower's annual income |
+| `credit_score` | Borrower's credit score |
+| `credit_tier` | Excellent / Good / Fair / Poor / Very Poor |
+| `employment_status` | Employed / Self-employed / Unemployed / Student / Retired |
+| `loan_amount` | Loan amount |
+| `loan_purpose` | Education / Medical / Business / Home / Car / Debt Consolidation / Vacation / Other |
+| `loan_term` | Loan term duration |
+| `loan_grade` | A through F |
+| `interest_rate` | Interest rate on loan |
+| `dti` | Debt-to-Income ratio |
+| `dti_tier` | Low / Moderate / High / Very High / Critical |
+| `total_accounts` | Total number of accounts |
+| `loan_status` | Paid Back / Defaulted |
+| `risk_score` | Composite risk score |
+| `risk_category` | Low Risk / Medium Risk / High Risk / Very High Risk |
+
+---
+
+## 📬 Contact
+
+**Your Name**
+- 🔗 [LinkedIn](https://linkedin.com/in/YOUR_PROFILE)
+- 📧 your.email@example.com
+- 💻 [GitHub](https://github.com/YOUR_USERNAME)
+
+---
+
+⭐ **If you found this project useful, please give it a star!**
